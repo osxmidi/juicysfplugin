@@ -88,7 +88,7 @@ sudo pacman -Sy libx11 gcc-multilib cmake freetype2 sqlite libxcb xcb-util gtkmm
 
 Also might need fluidsynth libraries to be installed on some distros.
 
-To make the default Vst3 version, cd into the ~/JUCE/juicysfplugin/plugin/Builds/Linux folder
+To make the default Vst3 version, cd into the ~/JUCE/juicysfplugin/Builds/Linux/
 
 make CONFIG=Release
 
