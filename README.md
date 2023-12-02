@@ -56,7 +56,7 @@ I couldn't find a _free_, _easy-to-use_ macOS audio plugin for making music with
 
 -----------
 
-Linux make instructions
+# Linux make instructions
 
 Rename the unzipped JUCE folder to JUCE and move it to the home folder
 
@@ -71,7 +71,7 @@ Move the Projucer binary to the main JUCE folder.
 
 Unzip juicysfplugin-master.zip and rename to juicysfplugin and place in the main JUCE folder.
 
-Run the Projucer and load the juicysfplugin jucer file in the unzipped juicysfplugin/plugin folder and save the project (disable JUCE_VST3_CAN_REPLACE_VST2 in the juce_audio_plugin_client module options before saving).
+Run the Projucer and load the juicysfplugin jucer file in the unzipped juicysfplugin folder and save the project (disable JUCE_VST3_CAN_REPLACE_VST2 in the juce_audio_plugin_client module options before saving).
 
 ---------
  
@@ -83,6 +83,8 @@ sudo apt-get -y install git pkg-config libfreetype6-dev libx11-dev libxinerama-d
 
 For Manjaro/EndeavourOS/Arch:
 sudo pacman -Sy libx11 gcc-multilib cmake freetype2 sqlite libxcb xcb-util gtkmm3 xcb-util-cursor libx11 pkgconfig xcb-util-keysyms
+
+Also might need fluidsynth libraries to be installed on some distros.
 
 To make the default Vst3 version, cd into the ~/JUCE/juicysfplugin/plugin/Builds/Linux folder
 
