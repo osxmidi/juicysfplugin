@@ -58,6 +58,8 @@ I couldn't find a _free_, _easy-to-use_ macOS audio plugin for making music with
 
 # Linux make instructions
 
+There are vst3 and lv2 binaries available on the Releases page.
+
 Rename the unzipped JUCE folder to JUCE and move it to the home folder
 
 Unzip this repository/clone inside the JUCE folder
