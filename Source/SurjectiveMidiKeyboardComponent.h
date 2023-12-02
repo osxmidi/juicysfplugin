@@ -416,7 +416,8 @@ private:
     int rangeStart, rangeEnd;
     float firstKey;
     bool canScroll, useMousePositionForVelocity, shouldCheckMousePos;
-    ScopedPointer<Button> scrollDown, scrollUp;
+   // ScopedPointer<Button> scrollDown, scrollUp;
+std::unique_ptr<Button> scrollDown, scrollUp;
 
     typedef multimap<int, KeyPress> DegreeToAscii;
     DegreeToAscii degreeToAsciis;

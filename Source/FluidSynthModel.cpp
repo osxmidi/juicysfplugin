@@ -338,11 +338,46 @@ void FluidSynthModel::setSampleRate(float sampleRate) {
     fluid_synth_set_sample_rate(synth.get(), sampleRate);
 }
 
-void FluidSynthModel::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages) {
+void FluidSynthModel::processBlock(AudioBuffer<float> & buffer, MidiBuffer& midiMessages) {
     MidiBuffer processedMidi;
     int time;
     MidiMessage m;
 
+for (const auto mid : midiMessages) {
+  const auto m = mid.getMessage();
+
+
+        if (m.isNoteOn()) {
+            fluid_synth_noteon(
+                synth.get(),
+                channel,
+                m.getNoteNumber(),
+                m.getVelocity());
+        } else if (m.isNoteOff()) {
+            fluid_synth_noteoff(
+                synth.get(),
+                channel,
+                m.getNoteNumber());
+        } else if (m.isController()) {
+            fluid_synth_cc(
+                synth.get(),
+                channel,
+                m.getControllerNumber(),
+                m.getControllerValue());
+
+            fluid_midi_control_change controllerNum{static_cast<fluid_midi_control_change>(m.getControllerNumber())};
+            if (auto it{controllerToParam.find(controllerNum)};
+                it != end(controllerToParam)) {
+                String parameterID{it->second};
+                RangedAudioParameter *param{valueTreeState.getParameter(parameterID)};
+                jassert(dynamic_cast<AudioParameterInt*>(param) != nullptr);
+                AudioParameterInt* castParam{dynamic_cast<AudioParameterInt*>(param)};
+                *castParam = m.getControllerValue();
+            }
+        } 
+
+
+/*
     for (MidiBuffer::Iterator i{midiMessages}; i.getNextEvent(m, time);) {
         DEBUG_PRINT(m.getDescription());
         
@@ -373,7 +408,11 @@ void FluidSynthModel::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiM
                 AudioParameterInt* castParam{dynamic_cast<AudioParameterInt*>(param)};
                 *castParam = m.getControllerValue();
             }
-        } else if (m.isProgramChange()) {
+        } 
+
+*/
+
+else if (m.isProgramChange()) {
 #if JUCE_DEBUG
             String debug{"MIDI program change: "};
             debug << m.getProgramChangeNumber();
@@ -431,7 +470,7 @@ void FluidSynthModel::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiM
         0,
         nullptr,
         buffer.getNumChannels(),
-        buffer.getArrayOfWritePointers());
+        (float **)buffer.getArrayOfWritePointers());
 }
 
 int FluidSynthModel::getNumPrograms()
