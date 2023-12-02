@@ -1,3 +1,43 @@
+# Linux make instructions
+
+There are vst3 and lv2 binaries available on the Releases page https://github.com/osxmidi/juicysfplugin/releases
+
+Rename the unzipped JUCE folder to JUCE and move it to the home folder
+
+Unzip this repository/clone inside the JUCE folder
+
+To make the Projucer, change into ~/JUCE/extras/Projucer/Builds/LinuxMakefile.
+Edit the Makefile and add "-DJUCER_ENABLE_GPL_MODE=1" to both the JUCE_CPPFLAGS lines.
+Then enter into the Terminal, 
+make CONFIG=Release
+
+Move the Projucer binary to the main JUCE folder.
+
+Unzip juicysfplugin-master.zip and rename to juicysfplugin and place in the main JUCE folder.
+
+Run the Projucer and load the juicysfplugin jucer file in the unzipped juicysfplugin folder and save the project (disable JUCE_VST3_CAN_REPLACE_VST2 in the juce_audio_plugin_client module options before saving).
+
+---------
+ 
+Some libraries need to be installed
+
+sudo apt-get -y install git pkg-config libfreetype6-dev libx11-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-gnutls-dev
+
+(also webkit2gtk-4.0 if using webkit)
+
+For Manjaro/EndeavourOS/Arch:
+sudo pacman -Sy libx11 gcc-multilib cmake freetype2 sqlite libxcb xcb-util gtkmm3 xcb-util-cursor libx11 pkgconfig xcb-util-keysyms
+
+Also might need fluidsynth libraries to be installed on some distros.
+
+To make the default Vst3 version, cd into the ~/JUCE/juicysfplugin/Builds/Linux/
+
+make CONFIG=Release
+
+vst3 is installed into ~/.vst3
+
+---------
+
 ![image](https://user-images.githubusercontent.com/6141784/60401921-32af9e00-9b80-11e9-8e3a-6c5717f868d6.png)
 
 Latest stable release:
@@ -53,48 +93,6 @@ This means you can host it inside your DAW (e.g. GarageBand, FL Studio Mac, Sibe
 # Why
 
 I couldn't find a _free_, _easy-to-use_ macOS audio plugin for making music with soundfonts.
-
------------
-
-# Linux make instructions
-
-There are vst3 and lv2 binaries available on the Releases page.
-
-Rename the unzipped JUCE folder to JUCE and move it to the home folder
-
-Unzip this repository/clone inside the JUCE folder
-
-To make the Projucer, change into ~/JUCE/extras/Projucer/Builds/LinuxMakefile.
-Edit the Makefile and add "-DJUCER_ENABLE_GPL_MODE=1" to both the JUCE_CPPFLAGS lines.
-Then enter into the Terminal, 
-make CONFIG=Release
-
-Move the Projucer binary to the main JUCE folder.
-
-Unzip juicysfplugin-master.zip and rename to juicysfplugin and place in the main JUCE folder.
-
-Run the Projucer and load the juicysfplugin jucer file in the unzipped juicysfplugin folder and save the project (disable JUCE_VST3_CAN_REPLACE_VST2 in the juce_audio_plugin_client module options before saving).
-
----------
- 
-Some libraries need to be installed
-
-sudo apt-get -y install git pkg-config libfreetype6-dev libx11-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-gnutls-dev
-
-(also webkit2gtk-4.0 if using webkit)
-
-For Manjaro/EndeavourOS/Arch:
-sudo pacman -Sy libx11 gcc-multilib cmake freetype2 sqlite libxcb xcb-util gtkmm3 xcb-util-cursor libx11 pkgconfig xcb-util-keysyms
-
-Also might need fluidsynth libraries to be installed on some distros.
-
-To make the default Vst3 version, cd into the ~/JUCE/juicysfplugin/Builds/Linux/
-
-make CONFIG=Release
-
-vst3 is installed into ~/.vst3
-
----------
 
 # Install (macOS)
 
